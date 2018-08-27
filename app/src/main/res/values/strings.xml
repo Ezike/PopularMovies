@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Popular Movies</string>
     <string name="button">Button</string>
+    <string name="api_key">dc63626051c66a8f61fe9c2275e85300</string>
+    <string name="base_URL">http://api.themoviedb.org/3/</string>
 </resources>
