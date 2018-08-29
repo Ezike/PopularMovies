@@ -4,16 +4,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.eziketobenna.popularmovies.Adapter.MovieAdapter;
+import com.example.eziketobenna.popularmovies.Model.Movie;
+import com.example.eziketobenna.popularmovies.Model.Result;
 import com.example.eziketobenna.popularmovies.NetworkUtils.ApiConstants;
 import com.example.eziketobenna.popularmovies.NetworkUtils.MovieApi;
 import com.example.eziketobenna.popularmovies.NetworkUtils.MovieRequestInterface;
 import com.example.eziketobenna.popularmovies.R;
-import com.example.eziketobenna.popularmovies.adapter.MovieAdapter;
-import com.example.eziketobenna.popularmovies.model.Movie;
-import com.example.eziketobenna.popularmovies.model.Result;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.movieRecyclerView)
     RecyclerView movieRecyclerView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     List<Movie> movies;
     private MovieAdapter movieAdapter;
@@ -35,16 +38,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         initViews();
     }
 
     private void initViews() {
         movieRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        movieRecyclerView.setHasFixedSize(false);
+        movieRecyclerView.setHasFixedSize(true);
         loadJSON();
     }
 
+    //TODO: Add your Api key in the ApiConstants class
     private void loadJSON() {
         MovieRequestInterface movieRequestInterface = MovieApi.getClient().create(MovieRequestInterface.class);
         Call<Result> movieResult = movieRequestInterface.getPopularMovies(ApiConstants.API_KEY);

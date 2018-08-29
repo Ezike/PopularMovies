@@ -3,4 +3,7 @@
     <dimen name="dimen_small">4dp</dimen>
     <dimen name="dimen_smaller">2dp</dimen>
     <dimen name="dimen_medium">8dp</dimen>
+    <dimen name="dimen_large">12dp</dimen>
+    <dimen name="card_elevation">0dp</dimen>
+    <dimen name="corner_radius">2dp</dimen>
 </resources>

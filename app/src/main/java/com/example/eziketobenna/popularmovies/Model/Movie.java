@@ -1,5 +1,5 @@
 
-package com.example.eziketobenna.popularmovies.model;
+package com.example.eziketobenna.popularmovies.Model;
 
 
 import android.os.Parcel;
@@ -34,13 +34,16 @@ public class Movie implements Parcelable {
     private Double voteAverage;
     @SerializedName("release_date")
     private String releaseDate;
+    @SerializedName("backdrop_path")
+    private String backdropPath;
 
-    public Movie(String originalTitle, String movieImagePath, String overview, Double voteAverage, String releaseDate) {
+    public Movie(String originalTitle, String movieImagePath, String overview, Double voteAverage, String releaseDate, String backdropPath) {
         this.originalTitle = originalTitle;
         this.movieImagePath = movieImagePath;
         this.overview = overview;
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
+        this.backdropPath = backdropPath;
     }
 
     public Movie() {
@@ -57,6 +60,7 @@ public class Movie implements Parcelable {
             voteAverage = in.readDouble();
         }
         releaseDate = in.readString();
+        backdropPath = in.readString();
     }
 
     public String getOriginalTitle() {
@@ -89,6 +93,14 @@ public class Movie implements Parcelable {
 
     public void setVoteAverage(Double voteAverage) {
         this.voteAverage = voteAverage;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
     }
 
     public String getReleaseDate() {
@@ -133,5 +145,6 @@ public class Movie implements Parcelable {
             dest.writeDouble(voteAverage);
         }
         dest.writeString(releaseDate);
+        dest.writeString(backdropPath);
     }
 }

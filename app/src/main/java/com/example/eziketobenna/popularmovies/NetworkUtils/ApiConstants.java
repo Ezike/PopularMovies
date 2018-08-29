@@ -3,9 +3,9 @@ package com.example.eziketobenna.popularmovies.NetworkUtils;
 public class ApiConstants {
 
     public static final String MOVIES_BASE_URL = "https://api.themoviedb.org/3/";
-    public static final String MOVIES_POSTER_BASE_URL = "https://image.tmdb.org/t/p/w780/";
+    public static final String MOVIES_POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500/";
 
-    //    Movies DB api key
+    /* TODO: Add your api key here */
     public static final String API_KEY = "dc63626051c66a8f61fe9c2275e85300";
 
     //    body query properties

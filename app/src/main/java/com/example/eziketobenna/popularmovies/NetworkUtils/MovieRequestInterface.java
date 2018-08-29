@@ -1,6 +1,6 @@
 package com.example.eziketobenna.popularmovies.NetworkUtils;
 
-import com.example.eziketobenna.popularmovies.model.Result;
+import com.example.eziketobenna.popularmovies.Model.Result;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

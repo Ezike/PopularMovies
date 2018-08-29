@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.adapter;
+package com.example.eziketobenna.popularmovies.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.eziketobenna.popularmovies.Model.Movie;
 import com.example.eziketobenna.popularmovies.NetworkUtils.ApiConstants;
 import com.example.eziketobenna.popularmovies.R;
-import com.example.eziketobenna.popularmovies.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,11 +42,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         bindViews(movieViewHolder, position);
     }
 
+    /**
+     * Helper method for binding views to data
+     * to be called in onBindViewHolder method
+     *
+     * @param holder   movie viewholder object
+     * @param position adapter position
+     */
+
     private void bindViews(MovieViewHolder holder, int position) {
         Movie movie = mMovies.get(holder.getAdapterPosition());
         loadImagePoster(holder, movie.getMovieImagePath());
+        holder.movieTitle.setText(movie.getOriginalTitle());
 
     }
+
+    /**
+     * Helper method to load poster image with picasso
+     * to be called in bindViews method
+     * @param holder the movieViewHolder argument
+     * @param imageUrl poster path from movieDB api
+     */
 
     private void loadImagePoster(final MovieViewHolder holder, String imageUrl) {
         String posterUrl = ApiConstants.MOVIES_POSTER_BASE_URL;
@@ -65,6 +82,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         @BindView(R.id.movie_imageView)
         ImageView movieImageView;
+        @BindView(R.id.movie_title)
+        TextView movieTitle;
 
         MovieViewHolder(@NonNull View itemView) {
             super(itemView);

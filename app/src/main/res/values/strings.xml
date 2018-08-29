@@ -1,12 +1,6 @@
 <resources>
     <string name="app_name">Popular Movies</string>
-    <string name="button">Button</string>
-    <string name="api_key">dc63626051c66a8f61fe9c2275e85300</string>
-    <string name="base_URL">http://api.themoviedb.org/3/</string>
-    <string name="poster_path_url">https://image.tmdb.org/t/p</string>
     <string name="popular_movies">movie/popular</string>
     <string name="top_rated_movies">movie/top_rated</string>
-    <string name="api_key_label">api_key</string>
-    <string name="poster_size">w185</string>
     <string name="content_description">movie posters</string>
 </resources>
