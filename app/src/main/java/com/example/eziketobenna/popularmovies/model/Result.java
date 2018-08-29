@@ -12,7 +12,7 @@ public class Result {
     @Expose
     private Long page;
     @Expose
-    private List<Result> results;
+    private List<Movie> results;
     @SerializedName("total_pages")
     private Long totalPages;
     @SerializedName("total_results")
@@ -26,11 +26,11 @@ public class Result {
         this.page = page;
     }
 
-    public List<Result> getResults() {
+    public List<Movie> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(List<Movie> results) {
         this.results = results;
     }
 
