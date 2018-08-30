@@ -3,4 +3,5 @@
     <string name="popular_movies">movie/popular</string>
     <string name="top_rated_movies">movie/top_rated</string>
     <string name="content_description">movie posters</string>
+    <string name="backdrop_desc">backdrop image</string>
 </resources>

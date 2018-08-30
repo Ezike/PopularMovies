@@ -6,4 +6,5 @@
     <dimen name="dimen_large">12dp</dimen>
     <dimen name="card_elevation">0dp</dimen>
     <dimen name="corner_radius">2dp</dimen>
+    <dimen name="appbar_dimen">300dp</dimen>
 </resources>

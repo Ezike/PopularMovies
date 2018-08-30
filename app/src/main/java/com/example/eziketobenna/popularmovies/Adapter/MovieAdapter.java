@@ -73,6 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     }
 
+
     @Override
     public int getItemCount() {
         return mMovies.size();
@@ -84,10 +85,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         ImageView movieImageView;
         @BindView(R.id.movie_title)
         TextView movieTitle;
-
         MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-
             ButterKnife.bind(this, itemView);
         }
     }

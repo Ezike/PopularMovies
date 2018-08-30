@@ -1,11 +1,14 @@
 package com.example.eziketobenna.popularmovies.Activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.eziketobenna.popularmovies.Adapter.MovieAdapter;
@@ -30,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView movieRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mySwipeRefreshLayout;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     List<Movie> movies;
     private MovieAdapter movieAdapter;
@@ -41,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         initViews();
+        setOnRefreshAction();
     }
 
     private void initViews() {
@@ -64,14 +73,42 @@ public class MainActivity extends AppCompatActivity {
                 //set up recycler view adapter
                 movieAdapter = new MovieAdapter(movies, getApplicationContext());
                 movieRecyclerView.setAdapter(movieAdapter);
+                progressBar.setVisibility(View.GONE);
+                mySwipeRefreshLayout.setRefreshing(false);
+                mySwipeRefreshLayout.setEnabled(false);
             }
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Data not available", Toast.LENGTH_SHORT).show();
                 Log.d(LOG_TAG, t.getMessage());
-
+                progressBar.setVisibility(View.GONE);
+                mySwipeRefreshLayout.setRefreshing(false);
+                mySwipeRefreshLayout.setEnabled(true);
             }
         });
     }
+
+    /*
+     * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
+     * performs a swipe-to-refresh gesture.
+     */
+    public void setOnRefreshAction() {
+        mySwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener()
+
+                {
+                    @Override
+                    public void onRefresh() {
+                        Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
+
+                        // This method performs the actual data-refresh operation.
+                        // The method calls setRefreshing(false) when it's finished.
+                        loadJSON();
+                    }
+                }
+        );
+    }
+
+
 }
