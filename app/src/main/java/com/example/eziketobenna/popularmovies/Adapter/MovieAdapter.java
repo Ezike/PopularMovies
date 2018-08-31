@@ -46,7 +46,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
      * Helper method for binding views to data
      * to be called in onBindViewHolder method
      *
-     * @param holder   movie viewholder object
+     * @param holder   movie viewHolder object
      * @param position adapter position
      */
 

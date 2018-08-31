@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<Result> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Data not available", Toast.LENGTH_SHORT).show();
                 Log.d(LOG_TAG, t.getMessage());
-                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
                 mySwipeRefreshLayout.setRefreshing(false);
                 mySwipeRefreshLayout.setEnabled(true);
             }
