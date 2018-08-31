@@ -7,4 +7,6 @@
     <dimen name="card_elevation">0dp</dimen>
     <dimen name="corner_radius">2dp</dimen>
     <dimen name="appbar_dimen">300dp</dimen>
+    <dimen name="dimen_big">16dp</dimen>
+    <dimen name="title_text">18sp</dimen>
 </resources>

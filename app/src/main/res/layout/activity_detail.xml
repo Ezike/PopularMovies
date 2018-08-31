@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    app:statusBarBackground="@android:color/transparent"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -26,7 +26,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
-                android:id="@+id/main.backdrop"
+                android:id="@+id/main_backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/backdrop_desc"
@@ -36,7 +36,7 @@
                 tools:src="@drawable/ic_launcher_foreground" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/main.toolbar"
+                android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"

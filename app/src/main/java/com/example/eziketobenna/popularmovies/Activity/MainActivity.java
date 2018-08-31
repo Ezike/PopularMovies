@@ -1,5 +1,6 @@
 package com.example.eziketobenna.popularmovies.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.ListClickListener {
 
     @BindView(R.id.movieRecyclerView)
     RecyclerView movieRecyclerView;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         movieRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         movieRecyclerView.setHasFixedSize(true);
+        movieAdapter = new MovieAdapter(getApplicationContext(), this);
+        movieRecyclerView.setAdapter(movieAdapter);
         loadJSON();
     }
 
@@ -68,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
                 int statusCode = response.code();
                 Result result = response.body();
                 movies = result.getResults();
+                movieAdapter.setMovieItem(movies);
                 Log.d(LOG_TAG, "network response code:" + statusCode);
 
                 //set up recycler view adapter
-                movieAdapter = new MovieAdapter(movies, getApplicationContext());
-                movieRecyclerView.setAdapter(movieAdapter);
+
                 progressBar.setVisibility(View.GONE);
                 mySwipeRefreshLayout.setRefreshing(false);
                 mySwipeRefreshLayout.setEnabled(false);
@@ -111,4 +114,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onListClick(Movie movie) {
+        Intent movieIntent = new Intent(this.getApplicationContext(), DetailActivity.class);
+        movieIntent.putExtra(DetailActivity.EXTRA_VALUE, movie);
+        startActivity(movieIntent);
+    }
 }

@@ -23,12 +23,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private static final String TAG = MovieAdapter.class.getSimpleName();
     private List<Movie> mMovies;
     private final Context context;
+    final private ListClickListener mListClickListener;
+    private MovieViewHolder holder;
 
-    public MovieAdapter(List<Movie> movies, Context context) {
-        this.mMovies = movies;
+    public MovieAdapter(Context context, ListClickListener onListClickListener) {
         this.context = context;
+        this.mListClickListener = onListClickListener;
     }
-
 
     @NonNull
     @Override
@@ -39,18 +40,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int position) {
-        bindViews(movieViewHolder, position);
+        this.holder = movieViewHolder;
+        bindViews(movieViewHolder);
     }
 
     /**
      * Helper method for binding views to data
      * to be called in onBindViewHolder method
      *
-     * @param holder   movie viewHolder object
-     * @param position adapter position
+     * @param holder movie viewHolder object
      */
-
-    private void bindViews(MovieViewHolder holder, int position) {
+    private void bindViews(MovieViewHolder holder) {
         Movie movie = mMovies.get(holder.getAdapterPosition());
         loadImagePoster(holder, movie.getMovieImagePath());
         holder.movieTitle.setText(movie.getOriginalTitle());
@@ -60,34 +60,61 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     /**
      * Helper method to load poster image with picasso
      * to be called in bindViews method
-     * @param holder the movieViewHolder argument
+     *
+     * @param holder   the movieViewHolder argument
      * @param imageUrl poster path from movieDB api
      */
-
     private void loadImagePoster(final MovieViewHolder holder, String imageUrl) {
         String posterUrl = ApiConstants.MOVIES_POSTER_BASE_URL;
         Picasso.get()
                 .load(posterUrl + imageUrl)
                 .error(R.mipmap.ic_launcher)
                 .into(holder.movieImageView);
-
     }
-
 
     @Override
     public int getItemCount() {
+        if (mMovies == null) {
+            return 0;
+        }
         return mMovies.size();
     }
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+    public void setMovieItem(List<Movie> movie) {
+        this.mMovies = movie;
+        notifyDataSetChanged();
+
+    }
+
+    public interface ListClickListener {
+        void onListClick(Movie movie);
+    }
+
+
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.movie_imageView)
         ImageView movieImageView;
         @BindView(R.id.movie_title)
         TextView movieTitle;
-        MovieViewHolder(@NonNull View itemView) {
+
+        MovieViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            movieImageView.setOnClickListener(this);
+        }
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            mListClickListener.onListClick(mMovies.get(position));
+
+
         }
     }
 
