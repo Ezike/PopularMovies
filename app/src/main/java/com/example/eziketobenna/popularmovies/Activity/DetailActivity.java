@@ -14,11 +14,6 @@ import com.example.eziketobenna.popularmovies.NetworkUtils.ApiConstants;
 import com.example.eziketobenna.popularmovies.R;
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -87,18 +82,18 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.movie_data_unavailable, Toast.LENGTH_SHORT).show();
     }
 
-    private Date stringToDate(String string) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy", Locale.getDefault());
-        Date date = new Date();
-        try {
-            date = format.parse(string);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return date;
-    }
+//    private Date stringToDate(String string) {
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy", Locale.getDefault());
+//        Date date = new Date();
+//        try {
+//            date = format.parse(string);
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return date;
+//    }
 
     private void loadImage(ImageView imageView, String imageUrl, String posterUrl) {
         Picasso.get()

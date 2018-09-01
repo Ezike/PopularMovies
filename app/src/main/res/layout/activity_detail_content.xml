@@ -38,7 +38,6 @@
                 android:id="@+id/titleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:textSize="@dimen/title_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +58,6 @@
                 android:id="@+id/release_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginLeft="@dimen/dimen_big"
                 android:layout_marginRight="8dp"
@@ -78,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dimen_small"
                 android:layout_marginRight="@dimen/dimen_medium"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/dimen_big"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="228dp" />
+                app:layout_constraintGuide_begin="209dp" />
 
 
         </android.support.constraint.ConstraintLayout>
