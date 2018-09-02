@@ -46,6 +46,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        toolbar.setTitle(title);
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
@@ -68,7 +69,6 @@ public class DetailActivity extends AppCompatActivity {
         titleTv.setText(title);
         dateTv.setText(date);
         overviewTv.setText(overview);
-
         //Load image
         String posterUrl = ApiConstants.MOVIES_DETAIL_BASE_URL;
         String backdropUrl = ApiConstants.MOVIES_BACKDROP_BASE_URL;
@@ -81,19 +81,6 @@ public class DetailActivity extends AppCompatActivity {
         finish();
         Toast.makeText(this, R.string.movie_data_unavailable, Toast.LENGTH_SHORT).show();
     }
-
-//    private Date stringToDate(String string) {
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy", Locale.getDefault());
-//        Date date = new Date();
-//        try {
-//            date = format.parse(string);
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return date;
-//    }
 
     private void loadImage(ImageView imageView, String imageUrl, String posterUrl) {
         Picasso.get()

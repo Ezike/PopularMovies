@@ -6,4 +6,8 @@
     <string name="backdrop_desc">backdrop image</string>
     <string name="movie_poster">movie poster</string>
     <string name="movie_data_unavailable">movie data unavailable</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="popular">Popular</string>
+    <string name="sort_by">sort by</string>
+
 </resources>
