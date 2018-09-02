@@ -3,6 +3,8 @@ package com.example.eziketobenna.popularmovies.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -75,9 +77,25 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         movieRecyclerView.setAdapter(movieAdapter);
         preferences = getApplicationContext().getSharedPreferences(PREF, Context.MODE_PRIVATE);
         preferences.registerOnSharedPreferenceChangeListener(this);
-        onSharedPreferenceChanged(preferences, getString(R.string.sort_by));
+        if (isConnected()) {
+            onSharedPreferenceChanged(preferences, getString(R.string.sort_by));
+        } else {
+            Toast.makeText(getApplicationContext(), "No Network Detected", Toast.LENGTH_LONG).show();
+        }
     }
 
+    private boolean isConnected() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = null;
+        if (connectivityManager != null) {
+            networkInfo = connectivityManager.getActiveNetworkInfo();
+        }
+
+        return networkInfo != null && networkInfo.isConnected();
+    }
 
     //TODO: Add your Api key in the ApiConstants class
     private void loadPopular() {
