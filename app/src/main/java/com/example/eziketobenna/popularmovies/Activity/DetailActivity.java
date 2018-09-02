@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import butterknife.ButterKnife;
 
 public class DetailActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = DetailActivity.class.getSimpleName();
     final static String EXTRA_VALUE = "extraMovie";
     Movie movie;
 
@@ -38,15 +40,12 @@ public class DetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     String title, date, overview, backdrop, poster;
     double rating;
-    float ratingFloat;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(title);
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
@@ -66,6 +65,8 @@ public class DetailActivity extends AppCompatActivity {
         poster = movie.getMovieImagePath();
         backdrop = movie.getBackdropPath();
         rating = movie.getVoteAverage();
+
+        //set movie detail on respective views
         titleTv.setText(title);
         dateTv.setText(date);
         overviewTv.setText(overview);
@@ -74,7 +75,14 @@ public class DetailActivity extends AppCompatActivity {
         String backdropUrl = ApiConstants.MOVIES_BACKDROP_BASE_URL;
         loadImage(posterIv, poster, posterUrl);
         loadImage(backdropIv, backdrop, backdropUrl);
-        ratingBar.setRating((float) rating);
+        /* set movie rating
+         * divide the vote average by 2 to fit 5 star rating bar
+         * since vote average is /10
+         */
+        float rated = (((float) rating) / 2);
+        ratingBar.setRating(rated);
+        toolbar.setTitle(title);
+        Log.d(LOG_TAG, "vote average:" + rated);
     }
 
     private void closeOnError() {
