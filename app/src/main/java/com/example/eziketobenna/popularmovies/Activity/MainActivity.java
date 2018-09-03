@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String PREF = "pref";
-    List<Movie> movies;
+    private List<Movie> movies;
     private MovieAdapter movieAdapter;
     private SharedPreferences preferences;
 
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
      * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
      * performs a swipe-to-refresh gesture.
      */
-    public void setOnRefreshAction() {
+    private void setOnRefreshAction() {
         mySwipeRefreshLayout.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener()
 
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         return preferences.getString(key, value);
     }
 
-    public void setKey(String value) {
+    private void setKey(String value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(getString(R.string.sort_by), value);
         editor.apply();
