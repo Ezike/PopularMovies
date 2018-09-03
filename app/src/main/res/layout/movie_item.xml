@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_movie"
     style="@style/cardViewStyle"
     app:cardBackgroundColor="@android:color/transparent"
@@ -27,8 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textAppearance="?attr/textAppearanceHeadline2" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            tools:text="@string/app_name" />
     </LinearLayout>
 
 
-</android.support.design.card.MaterialCardView>
+</android.support.v7.widget.CardView>

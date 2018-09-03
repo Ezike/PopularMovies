@@ -73,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/movie_rating"
             tools:text="@string/app_name" />
 
-        <android.support.design.card.MaterialCardView
+        <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_big"
@@ -100,7 +100,7 @@
             <!--app:layout_constraintEnd_toEndOf="parent"-->
             <!--app:layout_constraintStart_toStartOf="parent"-->
             <!--app:layout_constraintTop_toTopOf="@+id/guideline2"-->
-        </android.support.design.card.MaterialCardView>
+        </android.support.v7.widget.CardView>
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
