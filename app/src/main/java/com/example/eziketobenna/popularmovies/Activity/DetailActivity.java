@@ -81,7 +81,7 @@ public class DetailActivity extends AppCompatActivity {
          */
         float rated = (((float) rating) / 2);
         ratingBar.setRating(rated);
-        toolbar.setTitle(title);
+        setTitle("");
         Log.d(LOG_TAG, "vote average:" + rated);
     }
 

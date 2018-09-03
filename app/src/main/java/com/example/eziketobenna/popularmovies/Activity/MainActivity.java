@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         });
     }
 
+    //TODO: Add your Api key in the ApiConstants class
     private void loadTopRated() {
         MovieRequestInterface movieRequestInterface = MovieApi.getClient().create(MovieRequestInterface.class);
         Call<Result> movieResult = movieRequestInterface.getTopRatedMovies(ApiConstants.API_KEY);
