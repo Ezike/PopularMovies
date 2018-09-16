@@ -1,5 +1,7 @@
 package com.example.eziketobenna.popularmovies.NetworkUtils;
 
+import com.example.eziketobenna.popularmovies.BuildConfig;
+
 public class ApiConstants {
 
     public static final String MOVIES_BASE_URL = "https://api.themoviedb.org/3/";
@@ -7,7 +9,7 @@ public class ApiConstants {
     public static final String MOVIES_BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w780/";
     public static final String MOVIES_DETAIL_BASE_URL = "https://image.tmdb.org/t/p/w342/";
     /* TODO: Add your api key here */
-    public static final String API_KEY = "";
+    public static final String API_KEY = BuildConfig.ApiKey;
     // api query properties
     public static final String API_KEY_LABEL = "api_key";
     public static final String POPULAR_MOVIES = "movie/popular";

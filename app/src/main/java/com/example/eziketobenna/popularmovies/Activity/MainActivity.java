@@ -3,10 +3,13 @@ package com.example.eziketobenna.popularmovies.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     SwipeRefreshLayout mySwipeRefreshLayout;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,15 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         ButterKnife.bind(this);
         initViews();
         setOnRefreshAction();
+        // use 4 as span count in landscape
+        Configuration orientation = new Configuration();
+        if (this.movieRecyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            movieRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        } else if (this.movieRecyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            movieRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        }
     }
+
 
     @Override
     protected void onDestroy() {
@@ -80,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         if (isConnected()) {
             onSharedPreferenceChanged(preferences, getString(R.string.sort_by));
         } else {
-            Toast.makeText(getApplicationContext(), "No Network Detected", Toast.LENGTH_LONG).show();
+            Snackbar.make(coordinatorLayout, "Check your network connection", Snackbar.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "No Network Detected", Toast.LENGTH_LONG).show();
         }
     }
 

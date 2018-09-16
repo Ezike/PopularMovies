@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 public class DetailActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = DetailActivity.class.getSimpleName();
-    final static String EXTRA_VALUE = "extraMovie";
+    public final static String EXTRA_VALUE = "extraMovie";
     Movie movie;
 
     @BindView(R.id.titleTv)
