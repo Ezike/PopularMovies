@@ -12,7 +12,9 @@ public class ApiConstants {
     public static final String API_KEY = BuildConfig.ApiKey;
     // api query properties
     public static final String API_KEY_LABEL = "api_key";
-    public static final String POPULAR_MOVIES = "movie/popular";
-    public static final String TOP_RATED = "movie/top_rated";
+    public static final String POPULAR_MOVIES = "popular";
+    public static final String TOP_RATED = "top_rated";
+    public static final String REVIEWS = "movie/{id}/reviews";
+    public static final String TRAILERS = "movie/{id}/videos";
 
 }

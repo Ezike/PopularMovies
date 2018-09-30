@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.eziketobenna.popularmovies.Model.Movie;
+import com.example.eziketobenna.popularmovies.Model.Movie.Movie;
 import com.example.eziketobenna.popularmovies.NetworkUtils.ApiConstants;
 import com.example.eziketobenna.popularmovies.R;
 import com.squareup.picasso.Picasso;
@@ -101,7 +101,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         MovieViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            movieImageView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         /**
@@ -113,8 +113,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public void onClick(View v) {
             int position = getAdapterPosition();
             mListClickListener.onListClick(mMovies.get(position));
-
-
         }
     }
 

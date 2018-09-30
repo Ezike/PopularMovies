@@ -1,7 +1,10 @@
 
-package com.example.eziketobenna.popularmovies.Model;
+package com.example.eziketobenna.popularmovies.Model.Movie;
 
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -11,6 +14,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Movie class to create movie objects
  */
+@Entity(tableName = "movie")
 public class Movie implements Parcelable {
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -24,6 +28,8 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+    @PrimaryKey(autoGenerate = true)
+    private int roomId;
     @SerializedName("original_title")
     private String originalTitle;
     @SerializedName("poster_path")
@@ -36,21 +42,39 @@ public class Movie implements Parcelable {
     private String releaseDate;
     @SerializedName("backdrop_path")
     private String backdropPath;
+    @SerializedName("id")
+    private Integer id;
 
-    public Movie(String originalTitle, String movieImagePath, String overview, Double voteAverage, String releaseDate, String backdropPath) {
+    @Ignore
+    public Movie(String originalTitle, String movieImagePath, String overview, Double voteAverage, String releaseDate, String backdropPath, Integer id) {
+        this.originalTitle = originalTitle;
+        this.movieImagePath = movieImagePath;
+        this.overview = overview;
+
+        this.voteAverage = voteAverage;
+        this.releaseDate = releaseDate;
+        this.backdropPath = backdropPath;
+        this.id = id;
+    }
+
+    @Ignore
+    public Movie() {
+
+    }
+
+    public Movie(int roomId, String originalTitle, String movieImagePath, String overview, Double voteAverage, String releaseDate, String backdropPath, Integer id) {
+        this.roomId = roomId;
         this.originalTitle = originalTitle;
         this.movieImagePath = movieImagePath;
         this.overview = overview;
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
         this.backdropPath = backdropPath;
-    }
-
-    public Movie() {
-
+        this.id = id;
     }
 
     private Movie(Parcel in) {
+        roomId = in.readInt();
         originalTitle = in.readString();
         movieImagePath = in.readString();
         overview = in.readString();
@@ -61,6 +85,7 @@ public class Movie implements Parcelable {
         }
         releaseDate = in.readString();
         backdropPath = in.readString();
+        id = in.readInt();
     }
 
     public String getOriginalTitle() {
@@ -111,40 +136,42 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-    /**
-     * Describe the kinds of special objects contained in this Parcelable
-     * instance's marshaled representation. For example, if the object will
-     * include a file descriptor in the output of {@link #writeToParcel(Parcel, int)},
-     * the return value of this method must include the
-     * {@link #CONTENTS_FILE_DESCRIPTOR} bit.
-     *
-     * @return a bitmask indicating the set of special object types marshaled
-     * by this Parcelable object instance.
-     */
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
 
-    /**
-     * Flatten this object in to a Parcel.
-     *
-     * @param dest  The Parcel in which the object should be written.
-     * @param flags Additional flags about how the object should be written.
-     *              May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
-     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(roomId);
         dest.writeString(originalTitle);
         dest.writeString(movieImagePath);
         dest.writeString(overview);
         if (voteAverage == null) {
             dest.writeByte((byte) 0);
         } else {
+
             dest.writeByte((byte) 1);
             dest.writeDouble(voteAverage);
         }
         dest.writeString(releaseDate);
         dest.writeString(backdropPath);
+        dest.writeInt(id);
     }
 }

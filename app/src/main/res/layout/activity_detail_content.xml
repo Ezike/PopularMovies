@@ -38,6 +38,9 @@
             android:id="@+id/titleTv"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent"
@@ -46,10 +49,12 @@
         <RatingBar
             android:id="@+id/movie_rating"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            style="@style/Widget.AppCompat.RatingBar"
             android:layout_marginTop="@dimen/dimen_medium"
             android:isIndicator="true"
+            android:layout_height="45dp"
             android:numStars="5"
+            android:layout_marginBottom="20dp"
             android:rating="0"
             android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="@+id/titleTv"
@@ -60,47 +65,29 @@
             android:id="@+id/release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_large"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="@dimen/dimen_big"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="@dimen/dimen_big"
-            android:textSize="@dimen/title_text"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/poster"
+            android:layout_marginLeft="@dimen/dimen_big"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:textSize="22sp"
+            android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/movie_rating"
             tools:text="@string/app_name" />
 
-        <android.support.v7.widget.CardView
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/overview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_big"
-            android:layout_marginEnd="@dimen/dimen_medium"
-            android:layout_marginLeft="@dimen/dimen_medium"
-            android:layout_marginRight="@dimen/dimen_medium"
-            android:layout_marginStart="@dimen/dimen_medium"
-            android:layout_marginTop="@dimen/dimen_large"
-            android:elevation="@dimen/dimen_smaller"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/dimen_big"
+            android:padding="@dimen/dimen_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
-            tools:targetApi="lollipop">
+            tools:text="@tools:sample/lorem" />
 
-            <TextView
-                android:id="@+id/overview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_large"
-                tools:text="@string/app_name" />
-
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/guideline2"-->
-        </android.support.v7.widget.CardView>
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
@@ -109,6 +96,54 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="209dp" />
 
+        <TextView
+            android:id="@+id/trailer_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/trailers"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toTopOf="@+id/trailer_rv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/overview" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/trailer_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="#000000"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trailer_title" />
+
+
+        <TextView
+            android:id="@+id/review_title"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/reviews"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toTopOf="@+id/review_rv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trailer_rv" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/review_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_title" />
 
     </android.support.constraint.ConstraintLayout>
 
