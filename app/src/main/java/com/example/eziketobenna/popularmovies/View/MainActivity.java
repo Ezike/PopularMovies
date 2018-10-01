@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -20,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.example.eziketobenna.popularmovies.Adapter.MovieAdapter;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     private String apikey = ApiConstants.API_KEY;
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +64,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         initViews();
-//        setOnRefreshAction();
-        // use 4 as span count in landscape
         checkOrientation();
+        if (savedInstanceState != null && savedInstanceState.containsKey(PREF)) {
+            movies = savedInstanceState.getParcelable(PREF);
+            movieAdapter.setMovieItem(movies);
+        }
     }
 
     private void checkOrientation() {
@@ -87,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             onSharedPreferenceChanged(preferences, getString(R.string.sort_by));
         } else {
             Snackbar.make(coordinatorLayout, "Check your network connection", Snackbar.LENGTH_LONG).show();
-//            Toast.makeText(getApplicationContext(), "No Network Detected", Toast.LENGTH_LONG).show();
+            loadFavorites();
+            toolbar.setTitle("Favorite movies");
         }
     }
 
@@ -95,12 +101,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
-
         NetworkInfo networkInfo = null;
         if (connectivityManager != null) {
             networkInfo = connectivityManager.getActiveNetworkInfo();
         }
-
         return networkInfo != null && networkInfo.isConnected();
     }
 
@@ -112,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
     //TODO: Add your Api key in the ApiConstants class
     private void loadMovies(String sort, String apiKey) {
-        MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.loadAllMovies(sort, apiKey).observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
@@ -121,53 +125,23 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         });
     }
 
-//    private void loadPopular() {
-//        ApiInterface movieRequestInterface = ApiService.getClient().create(ApiInterface.class);
-//        Call<Result> movieResult = movieRequestInterface.getPopularMovies(ApiConstants.API_KEY);
-//        movieResult.enqueue(new Callback<Result>() {
-//            @Override
-//            public void onResponse(Call<Result> call, Response<Result> response) {
-//                int statusCode = response.code();
-//                Result result = response.body();
-//                movies = result.getResults();
-//                movieAdapter.setMovieItem(movies);
-//                Log.d(LOG_TAG, "network response code:" + statusCode);
-//                progressBar.setVisibility(View.GONE);
-//                mySwipeRefreshLayout.setRefreshing(false);
-//                mySwipeRefreshLayout.setEnabled(true);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Result> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Data not available", Toast.LENGTH_SHORT).show();
-//                Log.d(LOG_TAG, t.getMessage());
-//                progressBar.setVisibility(View.VISIBLE);
-//                mySwipeRefreshLayout.setRefreshing(false);
-//                mySwipeRefreshLayout.setEnabled(true);
-//            }
-//        });
-//    }
+    private void loadFavorites() {
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        mainViewModel.getFavMovies().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(@Nullable List<Movie> movies) {
+                movieAdapter.setMovieItem(movies);
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
 
-    /*
-     * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
-     * performs a swipe-to-refresh gesture.
-     */
-//    private void setOnRefreshAction() {
-//        mySwipeRefreshLayout.setOnRefreshListener(
-//                new SwipeRefreshLayout.OnRefreshListener()
-//
-//                {
-//                    @Override
-//                    public void onRefresh() {
-//                        Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
-//
-//                        // This method performs the actual data-refresh operation.
-//                        // The method calls setRefreshing(false) when it's finished.
-//                        onSharedPreferenceChanged(preferences, getString(R.string.sort_by));
-//                    }
-//                }
-//        );
-//    }
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        Movie movie = new Movie();
+        outState.putParcelable(PREF, movie);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -186,6 +160,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             case R.id.topRated:
                 setKey(getString(R.string.top_rated));
                 return true;
+            case R.id.favorites:
+                setKey("favorites");
+                return true;
+            case R.id.refresh:
+                getPreference();
+                progressBar.setVisibility(View.VISIBLE);
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -194,15 +174,16 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     }
 
     private void getPreference() {
-
         String key = getOrderValue();
-
         if (key.equals(getString(R.string.popular))) {
             loadMovies(popular, apikey);
-        } else {
-
-            setTitle(getString(R.string.top_rated));
+            toolbar.setTitle("Popular movies");
+        } else if (key.equals(getString(R.string.top_rated))) {
             loadMovies(topRated, apikey);
+            toolbar.setTitle("Top rated movies");
+        } else {
+            toolbar.setTitle("Favorite movies");
+            loadFavorites();
         }
     }
 

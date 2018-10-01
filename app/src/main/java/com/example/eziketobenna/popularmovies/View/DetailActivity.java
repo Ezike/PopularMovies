@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +25,8 @@ import com.example.eziketobenna.popularmovies.Model.Review.Review;
 import com.example.eziketobenna.popularmovies.Model.Trailer.Trailer;
 import com.example.eziketobenna.popularmovies.NetworkUtils.ApiConstants;
 import com.example.eziketobenna.popularmovies.R;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -52,15 +56,20 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     RecyclerView reviewView;
     @BindView(R.id.trailer_rv)
     RecyclerView trailerView;
+    @BindView(R.id.detail_coordinator)
+    CoordinatorLayout coordinatorLayout;
     String title, date, overview, backdrop, poster;
     Movie movie;
+    boolean isFavorite;
     double rating;
+    int id = -1;
+    private LikeButton likeButton;
     private ReviewAdapter reviewAdapter;
     private TrailerAdapter trailerAdapter;
     private List<Trailer> trailers;
     private List<Review> reviews;
     private String apiKey = ApiConstants.API_KEY;
-
+    private DetailViewModel detailViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,23 +77,39 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
         }
 
         assert intent != null;
-        if (intent.hasExtra(DetailActivity.EXTRA_VALUE)) {
-            movie = getIntent().getParcelableExtra(DetailActivity.EXTRA_VALUE);
+        if (intent.hasExtra(EXTRA_VALUE)) {
+            movie = getIntent().getParcelableExtra(EXTRA_VALUE);
             populateUI(movie);
         }
 
-        initView();
+        initViews();
         loadTrailers();
         loadReviews();
+        checkIfFavorite();
     }
 
-    private void initView() {
+    private void initViews() {
+        likeButton = findViewById(R.id.fav_button);
+        likeButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                detailViewModel.saveMovie(movie);
+                Snackbar.make(coordinatorLayout, "Added " + movie.getOriginalTitle() + " to favorites", Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                detailViewModel.deleteMovie(movie);
+                Snackbar.make(coordinatorLayout, "Removed " + movie.getOriginalTitle() + " from favorites", Snackbar.LENGTH_LONG).show();
+            }
+        });
         reviewView.setLayoutManager(new LinearLayoutManager(this));
         reviewAdapter = new ReviewAdapter(this);
         reviewView.setAdapter(reviewAdapter);
@@ -94,6 +119,20 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         trailerView.setHasFixedSize(false);
     }
 
+    void checkIfFavorite() {
+        int id = movie.getId();
+        detailViewModel.loadFavById(id).observe(this, new Observer<Movie>() {
+            @Override
+            public void onChanged(@Nullable Movie movie) {
+                if (movie == null) {
+                    likeButton.setLiked(false);
+                } else {
+                    likeButton.setLiked(true);
+                }
+            }
+        });
+
+    }
     void populateUI(Movie movie) {
         title = movie.getOriginalTitle();
         date = movie.getReleaseDate();
@@ -120,11 +159,6 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         Log.d(LOG_TAG, "vote average:" + rated);
     }
 
-    private void closeOnError() {
-        finish();
-        Toast.makeText(this, R.string.movie_data_unavailable, Toast.LENGTH_SHORT).show();
-    }
-
     private void loadImage(ImageView imageView, String imageUrl, String posterUrl) {
         Picasso.get()
                 .load(posterUrl + imageUrl)
@@ -133,7 +167,6 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     }
 
     private void loadTrailers() {
-        DetailViewModel detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         detailViewModel.getTrailers(movie.getId(), apiKey).observe(this, new Observer<List<Trailer>>() {
             @Override
             public void onChanged(@Nullable List<Trailer> trailers) {
@@ -143,7 +176,6 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     }
 
     private void loadReviews() {
-        DetailViewModel detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         detailViewModel.getReviews(movie.getId(), apiKey).observe(this, new Observer<List<Review>>() {
             @Override
             public void onChanged(@Nullable List<Review> reviews) {
@@ -161,4 +193,10 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         intent.setData(Uri.parse(url + key));
         startActivity(intent);
     }
+
+    private void closeOnError() {
+        finish();
+        Toast.makeText(this, R.string.movie_data_unavailable, Toast.LENGTH_SHORT).show();
+    }
+
 }

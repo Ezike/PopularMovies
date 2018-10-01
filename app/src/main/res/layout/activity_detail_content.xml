@@ -38,7 +38,6 @@
             android:id="@+id/titleTv"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,6 +75,16 @@
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/movie_rating"
             tools:text="@string/app_name" />
+
+        <com.like.LikeButton
+            android:id="@+id/fav_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon_size="40dp"
+            app:icon_type="heart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/release_date" />
 
         <TextView
             android:id="@+id/overview"
@@ -140,7 +149,7 @@
             android:id="@+id/review_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="22dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/review_title" />

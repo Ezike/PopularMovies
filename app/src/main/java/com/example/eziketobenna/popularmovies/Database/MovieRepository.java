@@ -14,7 +14,7 @@ public class MovieRepository {
     private ApiService apiService = ApiService.getInstance();
     private MovieDao mDao;
     private LiveData<List<Movie>> mFavMovies;
-    private AppExecutors mExecutors;
+    private AppExecutors mExecutors = AppExecutors.getInstance();
 
     public MovieRepository(Application application) {
         MovieDb db = MovieDb.getDatabase(application);

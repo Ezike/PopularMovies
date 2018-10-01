@@ -23,4 +23,8 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<List<Movie>> loadAllMovies(String sort, String apiKey) {
         return mAllMovies = mRepository.getMoviesFromNetwork(sort, apiKey);
     }
+
+    public LiveData<List<Movie>> getFavMovies() {
+        return mRepository.getFavMovies();
+    }
 }

@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.example.eziketobenna.popularmovies.Database.MovieRepository;
+import com.example.eziketobenna.popularmovies.Model.Movie.Movie;
 import com.example.eziketobenna.popularmovies.Model.Review.Review;
 import com.example.eziketobenna.popularmovies.Model.Trailer.Trailer;
 
@@ -28,5 +29,17 @@ public class DetailViewModel extends AndroidViewModel {
 
     public LiveData<List<Trailer>> getTrailers(int id, String apiKey) {
         return mRepository.getTrailers(id, apiKey);
+    }
+
+    public void saveMovie(Movie movie) {
+        mRepository.insert(movie);
+    }
+
+    public void deleteMovie(Movie movie) {
+        mRepository.delete(movie);
+    }
+
+    public LiveData<Movie> loadFavById(int id) {
+        return mRepository.getMovieById(id);
     }
 }
