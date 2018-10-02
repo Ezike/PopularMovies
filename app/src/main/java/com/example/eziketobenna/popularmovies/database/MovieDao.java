@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.Database;
+package com.example.eziketobenna.popularmovies.database;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -7,7 +7,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.example.eziketobenna.popularmovies.Model.Movie.Movie;
+import com.example.eziketobenna.popularmovies.model.Movie.Movie;
 
 import java.util.List;
 

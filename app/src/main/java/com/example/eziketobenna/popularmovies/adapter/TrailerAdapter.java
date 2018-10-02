@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.Adapter;
+package com.example.eziketobenna.popularmovies.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.eziketobenna.popularmovies.Model.Trailer.Trailer;
 import com.example.eziketobenna.popularmovies.R;
+import com.example.eziketobenna.popularmovies.model.Trailer.Trailer;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

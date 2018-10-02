@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.Model.Review;
+package com.example.eziketobenna.popularmovies.model.Review;
 
 import com.google.gson.annotations.SerializedName;
 

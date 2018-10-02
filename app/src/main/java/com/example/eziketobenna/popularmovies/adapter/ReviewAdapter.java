@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.Adapter;
+package com.example.eziketobenna.popularmovies.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.eziketobenna.popularmovies.Model.Review.Review;
 import com.example.eziketobenna.popularmovies.R;
+import com.example.eziketobenna.popularmovies.model.Review.Review;
 
 import java.util.List;
 

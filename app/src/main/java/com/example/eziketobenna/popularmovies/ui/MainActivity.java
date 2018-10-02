@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.View;
+package com.example.eziketobenna.popularmovies.ui;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -9,7 +9,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -24,10 +24,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.example.eziketobenna.popularmovies.Adapter.MovieAdapter;
-import com.example.eziketobenna.popularmovies.Model.Movie.Movie;
-import com.example.eziketobenna.popularmovies.NetworkUtils.ApiConstants;
 import com.example.eziketobenna.popularmovies.R;
+import com.example.eziketobenna.popularmovies.adapter.MovieAdapter;
+import com.example.eziketobenna.popularmovies.model.Movie.Movie;
+import com.example.eziketobenna.popularmovies.network.ApiConstants;
 
 import java.util.List;
 
@@ -41,13 +41,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     private List<Movie> movies;
     private MovieAdapter movieAdapter;
     private SharedPreferences preferences;
-    //    @BindView(R.id.swipe_refresh)
-//    SwipeRefreshLayout mySwipeRefreshLayout;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     private String popular = ApiConstants.POPULAR_MOVIES;
     private String topRated = ApiConstants.TOP_RATED;
-
     @BindView(R.id.movieRecyclerView)
     RecyclerView movieRecyclerView;
     @BindView(R.id.toolbar)
@@ -56,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
     private MainViewModel mainViewModel;
+    public final static String LIST_STATE_KEY = "recycler_list_state";
+    private Parcelable listState;
+    private GridLayoutManager gridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,14 +74,17 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     private void checkOrientation() {
         Configuration orientation = new Configuration();
         if (this.movieRecyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            movieRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            gridLayoutManager = new GridLayoutManager(this, 2);
+            movieRecyclerView.setLayoutManager(gridLayoutManager);
         } else if (this.movieRecyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            movieRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+            gridLayoutManager = new GridLayoutManager(this, 4);
+            movieRecyclerView.setLayoutManager(gridLayoutManager);
         }
     }
 
     private void initViews() {
-        movieRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        gridLayoutManager = new GridLayoutManager(this, 2);
+        movieRecyclerView.setLayoutManager(gridLayoutManager);
         movieRecyclerView.setHasFixedSize(true);
         movieAdapter = new MovieAdapter(getApplicationContext(), this);
         setSupportActionBar(toolbar);
@@ -95,6 +98,20 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             loadFavorites();
             toolbar.setTitle("Favorite movies");
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(LIST_STATE_KEY, gridLayoutManager.onSaveInstanceState());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null)
+            listState = savedInstanceState.getParcelable(LIST_STATE_KEY);
     }
 
     private boolean isConnected() {
@@ -121,6 +138,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
                 movieAdapter.setMovieItem(movies);
+                if (listState != null) {
+                    gridLayoutManager.onRestoreInstanceState(listState);
+                }
             }
         });
     }
@@ -132,15 +152,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             public void onChanged(@Nullable List<Movie> movies) {
                 movieAdapter.setMovieItem(movies);
                 progressBar.setVisibility(View.GONE);
+                if (listState != null) {
+                    gridLayoutManager.onRestoreInstanceState(listState);
+                }
             }
         });
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        Movie movie = new Movie();
-        outState.putParcelable(PREF, movie);
-        super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override

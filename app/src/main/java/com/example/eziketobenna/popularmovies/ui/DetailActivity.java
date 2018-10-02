@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.View;
+package com.example.eziketobenna.popularmovies.ui;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -18,13 +18,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.eziketobenna.popularmovies.Adapter.ReviewAdapter;
-import com.example.eziketobenna.popularmovies.Adapter.TrailerAdapter;
-import com.example.eziketobenna.popularmovies.Model.Movie.Movie;
-import com.example.eziketobenna.popularmovies.Model.Review.Review;
-import com.example.eziketobenna.popularmovies.Model.Trailer.Trailer;
-import com.example.eziketobenna.popularmovies.NetworkUtils.ApiConstants;
 import com.example.eziketobenna.popularmovies.R;
+import com.example.eziketobenna.popularmovies.adapter.ReviewAdapter;
+import com.example.eziketobenna.popularmovies.adapter.TrailerAdapter;
+import com.example.eziketobenna.popularmovies.model.Movie.Movie;
+import com.example.eziketobenna.popularmovies.model.Review.Review;
+import com.example.eziketobenna.popularmovies.model.Trailer.Trailer;
+import com.example.eziketobenna.popularmovies.network.ApiConstants;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;

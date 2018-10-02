@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.Adapter;
+package com.example.eziketobenna.popularmovies.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.eziketobenna.popularmovies.Model.Movie.Movie;
-import com.example.eziketobenna.popularmovies.NetworkUtils.ApiConstants;
 import com.example.eziketobenna.popularmovies.R;
+import com.example.eziketobenna.popularmovies.model.Movie.Movie;
+import com.example.eziketobenna.popularmovies.network.ApiConstants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

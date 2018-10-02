@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.NetworkUtils;
+package com.example.eziketobenna.popularmovies.network;
 
 import com.example.eziketobenna.popularmovies.BuildConfig;
 

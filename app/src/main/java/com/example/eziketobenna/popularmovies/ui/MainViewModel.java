@@ -1,12 +1,12 @@
-package com.example.eziketobenna.popularmovies.View;
+package com.example.eziketobenna.popularmovies.ui;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
-import com.example.eziketobenna.popularmovies.Database.MovieRepository;
-import com.example.eziketobenna.popularmovies.Model.Movie.Movie;
+import com.example.eziketobenna.popularmovies.database.MovieRepository;
+import com.example.eziketobenna.popularmovies.model.Movie.Movie;
 
 import java.util.List;
 

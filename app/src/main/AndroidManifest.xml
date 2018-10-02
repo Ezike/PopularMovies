@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".View.MainActivity"
+            android:name=".ui.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -26,12 +26,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.DetailActivity"
-            android:parentActivityName=".View.MainActivity"
+            android:name=".ui.DetailActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:theme="@style/DetailTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
 
     </application>

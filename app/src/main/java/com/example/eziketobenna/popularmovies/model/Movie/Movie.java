@@ -1,5 +1,5 @@
 
-package com.example.eziketobenna.popularmovies.Model.Movie;
+package com.example.eziketobenna.popularmovies.model.Movie;
 
 
 import android.arch.persistence.room.Entity;

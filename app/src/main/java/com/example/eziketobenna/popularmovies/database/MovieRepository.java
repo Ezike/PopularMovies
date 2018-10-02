@@ -1,12 +1,12 @@
-package com.example.eziketobenna.popularmovies.Database;
+package com.example.eziketobenna.popularmovies.database;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 
-import com.example.eziketobenna.popularmovies.Model.Movie.Movie;
-import com.example.eziketobenna.popularmovies.Model.Review.Review;
-import com.example.eziketobenna.popularmovies.Model.Trailer.Trailer;
-import com.example.eziketobenna.popularmovies.NetworkUtils.ApiService;
+import com.example.eziketobenna.popularmovies.model.Movie.Movie;
+import com.example.eziketobenna.popularmovies.model.Review.Review;
+import com.example.eziketobenna.popularmovies.model.Trailer.Trailer;
+import com.example.eziketobenna.popularmovies.network.ApiService;
 
 import java.util.List;
 

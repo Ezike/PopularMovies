@@ -1,5 +1,5 @@
 
-package com.example.eziketobenna.popularmovies.Model.Movie;
+package com.example.eziketobenna.popularmovies.model.Movie;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,4 +1,4 @@
-package com.example.eziketobenna.popularmovies.Model.Trailer;
+package com.example.eziketobenna.popularmovies.model.Trailer;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,8 +1,8 @@
-package com.example.eziketobenna.popularmovies.NetworkUtils;
+package com.example.eziketobenna.popularmovies.network;
 
-import com.example.eziketobenna.popularmovies.Model.Movie.Result;
-import com.example.eziketobenna.popularmovies.Model.Review.ReviewResponse;
-import com.example.eziketobenna.popularmovies.Model.Trailer.TrailerResponse;
+import com.example.eziketobenna.popularmovies.model.Movie.Result;
+import com.example.eziketobenna.popularmovies.model.Review.ReviewResponse;
+import com.example.eziketobenna.popularmovies.model.Trailer.TrailerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
