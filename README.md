@@ -38,5 +38,5 @@ This project is licensed under the Apache License 2.0 - See: http://www.apache.o
 
 ## Screenshot
 <h4 align="center">
-<img src="screenshots/pop_movies_main.jpg" width=280>
-<img src="screenshots/pop_movies_detail.jpg" width=280>
+<img src="screenshots/main.jpg" width=280>
+<img src="screenshots/detail.jpg" width=280>
