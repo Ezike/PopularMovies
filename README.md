@@ -37,4 +37,4 @@ Use your API key as the value for API_KEY in the file Apiconstants.java class
 This project is licensed under the Apache License 2.0 - See: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 ## Screenshot
-<img src="screenshots/pop_movies_main.png" height="400" alt="Screenshot"/> <img src="screenshots/pop_movies_detail.png" height="400" alt="Screenshot"/>
+<img src="screenshots/pop_movies_main.jpg" height="400" alt="Screenshot"/> <img src="screenshots/pop_movies_detail.jpg" height="400" alt="Screenshot"/>
