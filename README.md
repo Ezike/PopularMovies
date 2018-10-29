@@ -30,13 +30,13 @@ Use your API key as the value for API_KEY in the file Apiconstants.java class
 *   Generate an api key from themoviedb.org website 
 
 ## Libraries
-*   [Retrofit 2] (https://github.com/square/retrofit) - Type-safe HTTP client for Android and Java by Square, Inc. 
-*   [Gson] (https://github.com/google/gson) - A Java serialization/deserialization library to convert Java Objects into JSON and back
-*   [LiveData] (https://developer.android.com/topic/libraries/architecture/livedata)
-*   [ViewModel] (https://developer.android.com/topic/libraries/architecture/viewmodel)
-*   [Room] (https://developer.android.com/topic/libraries/architecture/room)
-*   [Picasso] (https://github.com/square/picasso)
-*   [LikeButton] (https://github.com/jd-alexander/LikeButton)
+*   [Retrofit 2](https://github.com/square/retrofit)
+*   [Gson](https://github.com/google/gson)
+*   [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
+*   [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+*   [Room](https://developer.android.com/topic/libraries/architecture/room)
+*   [Picasso](https://github.com/square/picasso)
+*   [LikeButton](https://github.com/jd-alexander/LikeButton)
 
 ## License
 This project is licensed under the Apache License 2.0 - See: http://www.apache.org/licenses/LICENSE-2.0.txt
