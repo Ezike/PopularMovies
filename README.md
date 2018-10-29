@@ -36,7 +36,7 @@ Use your API key as the value for API_KEY in the file Apiconstants.java class
 ## License
 This project is licensed under the Apache License 2.0 - See: http://www.apache.org/licenses/LICENSE-2.0.txt
 
-## Screenshot
+<h2 align="center">Screenshots</h2>
 <h4 align="center">
 <img src="screenshots/main.jpg" width=280>
 <img src="screenshots/detail.jpg" width=280>
