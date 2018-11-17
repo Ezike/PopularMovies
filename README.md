@@ -10,6 +10,9 @@ All movie data is fetched from themoviedb.org API.
 <img src="screenshots/main.jpg" width=280>
 <img src="screenshots/detail.jpg" width=280>
 
+## Download
+You can get the app on playstore by following this [link](https://play.google.com/store/apps/details?id=com.toby.eziketobenna.popularmovies)
+
 ## Features
 *   Discover the most popular and the most rated movies
 *   Save favorite movies locally
