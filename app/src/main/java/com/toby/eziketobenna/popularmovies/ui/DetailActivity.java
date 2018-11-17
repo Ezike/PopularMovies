@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,12 +23,12 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 import com.toby.eziketobenna.popularmovies.R;
-import com.toby.eziketobenna.popularmovies.adapter.ReviewAdapter;
-import com.toby.eziketobenna.popularmovies.adapter.TrailerAdapter;
 import com.toby.eziketobenna.popularmovies.model.Movie.Movie;
 import com.toby.eziketobenna.popularmovies.model.Review.Review;
 import com.toby.eziketobenna.popularmovies.model.Trailer.Trailer;
 import com.toby.eziketobenna.popularmovies.network.ApiConstants;
+import com.toby.eziketobenna.popularmovies.ui.adapter.ReviewAdapter;
+import com.toby.eziketobenna.popularmovies.ui.adapter.TrailerAdapter;
 
 import java.util.List;
 
@@ -77,6 +78,12 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+
+        // Show the Up button in the action bar.
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         Intent intent = getIntent();
         if (intent == null) {

@@ -25,9 +25,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.toby.eziketobenna.popularmovies.R;
-import com.toby.eziketobenna.popularmovies.adapter.MovieAdapter;
 import com.toby.eziketobenna.popularmovies.model.Movie.Movie;
 import com.toby.eziketobenna.popularmovies.network.ApiConstants;
+import com.toby.eziketobenna.popularmovies.ui.adapter.MovieAdapter;
 
 import java.util.List;
 
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     }
 
     private void checkOrientation() {
-        Configuration orientation = new Configuration();
         if (this.movieRecyclerView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             gridLayoutManager = new GridLayoutManager(this, 2);
             movieRecyclerView.setLayoutManager(gridLayoutManager);
@@ -103,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putParcelable(LIST_STATE_KEY, gridLayoutManager.onSaveInstanceState());
     }
 

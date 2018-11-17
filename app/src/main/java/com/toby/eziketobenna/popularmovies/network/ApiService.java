@@ -71,7 +71,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<ReviewResponse> call, Throwable t) {
-
+                mutableLiveData.setValue(null);
             }
         });
         return mutableLiveData;

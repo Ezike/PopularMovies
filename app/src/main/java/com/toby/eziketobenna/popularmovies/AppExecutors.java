@@ -1,4 +1,4 @@
-package com.toby.eziketobenna.popularmovies.database;
+package com.toby.eziketobenna.popularmovies;
 
 import android.os.Handler;
 import android.os.Looper;

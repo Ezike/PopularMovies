@@ -14,9 +14,6 @@ public interface ApiInterface {
     @GET("movie/{sorting}")
     Call<Result> getMovies(@Path("sorting") String sort, @Query(ApiConstants.API_KEY_LABEL) String apiKey);
 
-//    @GET(ApiConstants.TOP_RATED)
-//    Call<Result> getTopRatedMovies(@Query(ApiConstants.API_KEY_LABEL) String apiKey);
-
     @GET(ApiConstants.REVIEWS)
     Call<ReviewResponse> getReviews(@Path("id") int id, @Query(ApiConstants.API_KEY_LABEL) String apiKey);
 
