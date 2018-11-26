@@ -84,6 +84,7 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        setTitle("");
         detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         Intent intent = getIntent();
         if (intent == null) {
@@ -103,7 +104,6 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     }
 
     private void initViews() {
-        toolbar.setTitle("");
         likeButton = findViewById(R.id.fav_button);
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override

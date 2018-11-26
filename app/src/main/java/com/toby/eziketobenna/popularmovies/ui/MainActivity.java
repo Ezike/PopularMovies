@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putParcelable(LIST_STATE_KEY, gridLayoutManager.onSaveInstanceState());
+        super.onSaveInstanceState(outState);
     }
 
     @Override
