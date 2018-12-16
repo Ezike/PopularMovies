@@ -61,14 +61,10 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     CoordinatorLayout coordinatorLayout;
     String title, date, overview, backdrop, poster;
     Movie movie;
-    boolean isFavorite;
     double rating;
-    int id = -1;
     private LikeButton likeButton;
     private ReviewAdapter reviewAdapter;
     private TrailerAdapter trailerAdapter;
-    private List<Trailer> trailers;
-    private List<Review> reviews;
     private String apiKey = ApiConstants.API_KEY;
     private DetailViewModel detailViewModel;
 
@@ -101,10 +97,22 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         loadTrailers();
         loadReviews();
         checkIfFavorite();
+
     }
 
     private void initViews() {
         likeButton = findViewById(R.id.fav_button);
+        addFavorite();
+        reviewView.setLayoutManager(new LinearLayoutManager(this));
+        reviewAdapter = new ReviewAdapter(this);
+        reviewView.setAdapter(reviewAdapter);
+        trailerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        trailerAdapter = new TrailerAdapter(this, this);
+        trailerView.setAdapter(trailerAdapter);
+        trailerView.setHasFixedSize(false);
+    }
+
+    private void addFavorite() {
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
@@ -117,14 +125,8 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
                 detailViewModel.deleteMovie(movie);
                 Snackbar.make(coordinatorLayout, "Removed " + movie.getOriginalTitle() + " from favorites", Snackbar.LENGTH_LONG).show();
             }
+
         });
-        reviewView.setLayoutManager(new LinearLayoutManager(this));
-        reviewAdapter = new ReviewAdapter(this);
-        reviewView.setAdapter(reviewAdapter);
-        trailerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        trailerAdapter = new TrailerAdapter(this, this);
-        trailerView.setAdapter(trailerAdapter);
-        trailerView.setHasFixedSize(false);
     }
 
     void checkIfFavorite() {
@@ -139,8 +141,8 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
                 }
             }
         });
-
     }
+
     void populateUI(Movie movie) {
         title = movie.getOriginalTitle();
         date = movie.getReleaseDate();
@@ -190,7 +192,6 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
                 reviewAdapter.setReviews(reviews);
             }
         });
-
     }
 
     @Override
