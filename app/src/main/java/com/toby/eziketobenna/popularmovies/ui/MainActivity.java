@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.toby.eziketobenna.popularmovies.R;
 import com.toby.eziketobenna.popularmovies.model.Movie.Movie;
@@ -36,9 +38,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.ListClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String PREF = "pref";
-    private List<Movie> movies;
     private MovieAdapter movieAdapter;
     private SharedPreferences preferences;
     @BindView(R.id.progress_bar)
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     public final static String LIST_STATE_KEY = "recycler_list_state";
     private Parcelable listState;
     private GridLayoutManager gridLayoutManager;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +64,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         setContentView(R.layout.activity_main);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
-        initViews();
+        initViews(savedInstanceState);
         checkOrientation();
-        if (savedInstanceState != null && savedInstanceState.containsKey(PREF)) {
-            movies = savedInstanceState.getParcelable(PREF);
-            movieAdapter.setMovieItem(movies);
-        }
     }
 
     private void checkOrientation() {
@@ -81,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         }
     }
 
-    private void initViews() {
+    private void initViews(Bundle s) {
         gridLayoutManager = new GridLayoutManager(this, 2);
         movieRecyclerView.setLayoutManager(gridLayoutManager);
         movieRecyclerView.setHasFixedSize(true);
@@ -94,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             onSharedPreferenceChanged(preferences, getString(R.string.sort_by));
         } else {
             Snackbar.make(coordinatorLayout, "Check your network connection", Snackbar.LENGTH_LONG).show();
-            loadFavorites();
             toolbar.setTitle("Favorite movies");
         }
     }
@@ -112,8 +108,25 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
             listState = savedInstanceState.getParcelable(LIST_STATE_KEY);
     }
 
-    private boolean isConnected() {
+    // press back twice to exit
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        setKey(getString(R.string.popular));
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, R.string.double_press_back, Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
 
+    private boolean isConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = null;
@@ -223,5 +236,15 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         Intent movieIntent = new Intent(this.getApplicationContext(), DetailActivity.class);
         movieIntent.putExtra(DetailActivity.EXTRA_VALUE, movie);
         startActivity(movieIntent);
+    }
+
+    @Override
+    protected void onResume() {
+        if (!isConnected()) {
+            loadFavorites();
+        } else {
+            onSharedPreferenceChanged(preferences, getString(R.string.sort_by));
+        }
+        super.onResume();
     }
 }
