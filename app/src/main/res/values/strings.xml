@@ -15,5 +15,6 @@
     <string name="reviews">Reviews</string>
     <string name="trailers">Trailers</string>
     <string name="refresh">refresh</string>
+    <string name="double_press_back">Please press back again to exit</string>
 
 </resources>

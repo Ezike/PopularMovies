@@ -83,7 +83,7 @@
             android:id="@+id/fav_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon_size="35dp"
+            app:icon_size="38dp"
             app:icon_type="heart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"

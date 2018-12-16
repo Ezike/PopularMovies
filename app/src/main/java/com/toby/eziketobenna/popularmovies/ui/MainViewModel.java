@@ -20,11 +20,15 @@ public class MainViewModel extends AndroidViewModel {
         mRepository = new MovieRepository(application);
     }
 
-    public LiveData<List<Movie>> loadAllMovies(String sort, String apiKey) {
+    LiveData<List<Movie>> loadAllMovies(String sort, String apiKey) {
         return mAllMovies = mRepository.getMoviesFromNetwork(sort, apiKey);
     }
 
-    public LiveData<List<Movie>> getFavMovies() {
+    LiveData<List<Movie>> getFavMovies() {
         return mRepository.getFavMovies();
+    }
+
+    public LiveData<Movie> loadFavById(int id) {
+        return mRepository.getMovieById(id);
     }
 }
